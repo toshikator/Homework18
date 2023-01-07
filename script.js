@@ -80,54 +80,6 @@
 
     function renderRight() {
         const right = document.querySelector('.travel-history');
-
-        // const rightPartHtml = `
-        // <div class="col-md-6 col-sm-12 travel-history">
-        //         <h3>Travel history:</h3>
-        //         <div class="card travel-card">
-        //             <div class="title">
-        //                 <h4>From Haifa to Jerusalem</h4>
-        //                 <i class="bi bi-pencil-square edit"></i>
-        //                 <i class="bi bi-x-circle remove"></i>
-        //                 <i class="bi bi-three-dots-vertical details"></i>
-        //             </div>
-        //             <span>Expected budget: 1000 ILS</span>
-        //             <span>1.03.2023 - 4.03.2023 | 2 persons | Private car</span>
-        //         </div>
-        //         <div class="card travel-card">
-        //             <div class="title">
-        //                 <h4>From Haifa to Barcelona</h4>
-        //                 <i class="bi bi-pencil-square edit"></i>
-        //                 <i class="bi bi-x-circle remove"></i>
-        //                 <i class="bi bi-three-dots-vertical details"></i>
-        //             </div>
-        //             <span>Expected budget: 3000 ILS</span>
-        //             <span>21.06.2023 - 24.06.2023 | 3 persons | Fly</span>
-        //         </div>
-        //         <div class="card travel-card">
-        //             <div class="title">
-        //                 <h4>From Haifa to Torino</h4>
-        //                 <i class="bi bi-pencil-square edit"></i>
-        //                 <i class="bi bi-x-circle remove"></i>
-        //                 <i class="bi bi-three-dots-vertical details"></i>
-        //             </div>
-        //             <span>Expected budget: 2700 ILS</span>
-        //             <span>15.08.2023 - 20.08.2023 | 2 persons | Fly</span>
-        //         </div>
-        //         <div class="card travel-card">
-        //             <div class="title">
-        //                 <h4>From Haifa to Bukovel</h4>
-        //                 <i class="bi bi-pencil-square edit"></i>
-        //                 <i class="bi bi-x-circle remove"></i>
-        //                 <i class="bi bi-three-dots-vertical details"></i>
-        //             </div>
-        //             <span>Expected budget: 5000 ILS</span>
-        //             <span>21.12.2023 - 5.01.2024 | 3 persons | Fly</span>
-        //         </div>
-        //     </div>
-        // `;
-
-
         let testString = ['1','1','1','1'];
         right.innerHTML = '<h3>Travel history:</h3>'+testString.map((value,index)=>{
             if(travelDatabase[index]){
