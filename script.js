@@ -7,7 +7,6 @@
         // console.log( 'start of left render',objectForCorrect);
         let leftPartHtml = '';
         if (objectForCorrect !== undefined) {
-            document.querySelector('.btn-redact-travel').addEventListener('click',redactTravel);
             leftPartHtml = `            
                     <div class="card add-travel-card">
                         <h3>Redact the travel:</h3>
@@ -39,7 +38,8 @@
                         <button class="btn btn-success btn-redact-travel">Save travel</button>
                     </div>                
             `;
-            objectForCorrect.innerHTML = leftPartHtml;
+            left.innerHTML = leftPartHtml;
+            document.querySelector('.btn-redact-travel').addEventListener('click',redactTravel);
         }
         else{
             leftPartHtml = `            
@@ -62,7 +62,7 @@
                         </select>
                         <label for="transfer_type">Main transfer type:</label>
                         <select id="transfer_type" class="form-control">
-                            <option value="def">---</option>
+                            <option value="unknown">---</option>
                             <option value="car">Private car</option>
                             <option value="bus">Bus</option>
                             <option value="railway">Railway</option>
@@ -74,6 +74,7 @@
                     </div>                
             `;
             left.innerHTML = leftPartHtml;
+            document.querySelector('.btn-save-travel').addEventListener('click',addNewTravel);
         }
 
     }
@@ -167,9 +168,9 @@
 
 
     function saveDatabase() {
-        console.log('save data to local ST');
+        // console.log('save data to local ST');
         localStorage.setItem('travelDatabase',JSON.stringify(travelDatabase));
-        console.log(travelDatabase);
+        // console.log(travelDatabase);
     }
     function loadDatabase() {
         if (localStorage.getItem('travelDatabase')){
@@ -180,8 +181,6 @@
     renderRight();
 
     function experiments() {
-
-
         const detailsNode = document.querySelectorAll('.details');
         // console.log(detailsNode);
         detailsNode.forEach((value) => {
@@ -193,6 +192,10 @@
         // console.log(detailsNode);
         deleteNode.forEach((value) => {
             value.addEventListener('click',removeItem);
+        });
+        const redactNode = document.querySelectorAll('.edit')
+        redactNode.forEach((value) => {
+            value.addEventListener('click',goToRedactTravel);
         });
 
     }
@@ -212,7 +215,7 @@
         name = Number(name.substring(2,name.length));
         let string1 = Object.entries(travelDatabase[name]);
         string1.forEach((value,index)=>{
-            result = result.concat('\n',value[0],'-',value[1]);
+            result = result.concat('\n',value[0],' -- ',value[1]);
         })
         alert( (result));
     }
@@ -220,8 +223,6 @@
 
 
     function addNewTravel() {
-        console.log('saveNew');
-
         if (travelDatabase.length > 3){
             travelDatabase.shift();
             travelDatabase.push(getCurrentElement());
@@ -233,8 +234,11 @@
         renderLeft();
         renderRight();
     }
-    function redactTravel() {
-
+    function goToRedactTravel() {
+        let name = (this.getAttribute('name'));
+        name = Number(name.substring(2,name.length));
+        console.log(travelDatabase[name]);
+        renderLeft(travelDatabase[name])
 
 
 
@@ -244,7 +248,7 @@
         renderLeft();
         renderRight();
     }
-    document.querySelector('.btn-save-travel').addEventListener('click',addNewTravel);
-    console.log('travelDataBase',travelDatabase);
+
+    // console.log('travelDataBase',travelDatabase);
 
 })();
