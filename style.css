@@ -15,7 +15,7 @@ span{
     padding: 16px;
     background-color: #ddd;
 }
-.btn-save-travel{
+.btn-save-travel, .btn-redact-travel{
     margin-top: 16px;
 }
 .travel-card{
