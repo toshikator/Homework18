@@ -2,7 +2,7 @@
     let travelDatabase = [];
     loadDatabase();
 
-    function renderLeft(objectForCorrect = undefined) {
+    function renderLeft(objectForCorrect = undefined, elementNumber= 0) {
         const left = document.querySelector('.container .row>div');
         // console.log( 'start of left render',objectForCorrect);
         let leftPartHtml = '';
@@ -35,11 +35,11 @@
                             <option value="rent_cat">Rent car</option>
                             <option value="taxi">Taxi</option>
                         </select>
-                        <button class="btn btn-success btn-redact-travel">Save travel</button>
+                        <button class="btn btn-success btn-redact-travel" elemNumber="${elementNumber}" name="edit_travel_btn">Edit travel</button>
                     </div>                
             `;
             left.innerHTML = leftPartHtml;
-            document.querySelector('.btn-redact-travel').addEventListener('click',redactTravel);
+            document.querySelector('.btn-redact-travel').addEventListener('click',saveTravel);
         }
         else{
             leftPartHtml = `            
@@ -70,15 +70,13 @@
                             <option value="rent_cat">Rent car</option>
                             <option value="taxi">Taxi</option>
                         </select>
-                        <button class="btn btn-success btn-save-travel">Save travel</button>
+                        <button class="btn btn-success btn-save-travel" name="save_travel_btn">Save travel</button>
                     </div>                
             `;
             left.innerHTML = leftPartHtml;
-            document.querySelector('.btn-save-travel').addEventListener('click',addNewTravel);
+            document.querySelector('.btn-save-travel').addEventListener('click',saveTravel);
         }
-
     }
-
 
     function renderRight() {
         const right = document.querySelector('.travel-history');
@@ -152,8 +150,6 @@
         experiments();
     }
 
-
-
     function getCurrentElement() {
         return {
             dest_city : document.getElementById('dest_city').value,
@@ -165,7 +161,6 @@
             transfer_type : document.getElementById('transfer_type').value,
         }
     }
-
 
     function saveDatabase() {
         // console.log('save data to local ST');
@@ -214,21 +209,25 @@
         let name = (this.getAttribute('name'));
         name = Number(name.substring(2,name.length));
         let string1 = Object.entries(travelDatabase[name]);
-        string1.forEach((value,index)=>{
+        string1.forEach((value,)=>{
             result = result.concat('\n',value[0],' -- ',value[1]);
         })
         alert( (result));
     }
 
-
-
-    function addNewTravel() {
-        if (travelDatabase.length > 3){
-            travelDatabase.shift();
-            travelDatabase.push(getCurrentElement());
-        }
-        else{
-            travelDatabase.push(getCurrentElement());
+    function saveTravel() {
+        let name = this.getAttribute('name');
+        if (name === 'save_travel_btn') {
+            if (travelDatabase.length > 3) {
+                travelDatabase.shift();
+                travelDatabase.push(getCurrentElement());
+            } else {
+                travelDatabase.push(getCurrentElement());
+            }
+        }else if(name === 'edit_travel_btn'){
+            const elemNumber = this.getAttribute('elemNumber');
+            console.log(elemNumber);
+            travelDatabase.splice(elemNumber,1,getCurrentElement());
         }
         saveDatabase();
         renderLeft();
@@ -238,17 +237,8 @@
         let name = (this.getAttribute('name'));
         name = Number(name.substring(2,name.length));
         console.log(travelDatabase[name]);
-        renderLeft(travelDatabase[name])
-
-
-
-
-
+        renderLeft(travelDatabase[name], name);
         saveDatabase();
-        renderLeft();
         renderRight();
     }
-
-    // console.log('travelDataBase',travelDatabase);
-
 })();
