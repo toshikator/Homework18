@@ -129,7 +129,7 @@
 
 
         let testString = ['1','1','1','1'];
-        right.innerHTML = testString.map((value,index)=>{
+        right.innerHTML = '<h3>Travel history:</h3>'+testString.map((value,index)=>{
             if(travelDatabase[index]){
                 return `
                     <div class="card travel-card">
@@ -163,10 +163,9 @@
     }
 
     function saveDatabase() {
-        // console.log('save data to local ST');
         localStorage.setItem('travelDatabase',JSON.stringify(travelDatabase));
-        // console.log(travelDatabase);
     }
+
     function loadDatabase() {
         if (localStorage.getItem('travelDatabase')){
             travelDatabase = JSON.parse(localStorage.getItem('travelDatabase'));
@@ -177,14 +176,10 @@
 
     function experiments() {
         const detailsNode = document.querySelectorAll('.details');
-        // console.log(detailsNode);
         detailsNode.forEach((value) => {
             value.addEventListener('click',showDetails);
         });
-        // const experiment = document.querySelector('.travel-history');
-        // console.log('here',experiment.children);
         const deleteNode = document.querySelectorAll('.remove');
-        // console.log(detailsNode);
         deleteNode.forEach((value) => {
             value.addEventListener('click',removeItem);
         });
@@ -192,7 +187,6 @@
         redactNode.forEach((value) => {
             value.addEventListener('click',goToRedactTravel);
         });
-
     }
 
     function removeItem() {
